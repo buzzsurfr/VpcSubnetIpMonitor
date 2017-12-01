@@ -12,7 +12,7 @@ Resources:
       Description: ''
       MemorySize: 128
       Timeout: 15
-      Role: MonitorRole
+      Role: !GetAtt MonitorRole.Arn
       Events:
         CheckSubnetsScheduledEvent:
           Type: Schedule
