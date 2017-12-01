@@ -4,6 +4,8 @@ Description: An AWS Serverless Specification template describing your function.
 Resources:
   VpcSubnetIpMonitor:
     Type: 'AWS::Serverless::Function'
+    DependsOn:
+      - VpcSubnetIpMonitorRole
     Properties:
       Handler: VpcSubnetIpMonitor/index.handler
       Runtime: nodejs6.10
@@ -15,3 +17,32 @@ Resources:
           Type: Schedule
           Properties:
             Schedule: rate(5 minutes)
+  VpcSubnetIpMonitorExecutionPolicy:
+    Type: 'AWS::IAM::Policy'
+    Properties:
+      PolicyName: VpcSubneIpMonitorExecutionPolicy
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - 'cloudwatch:PutMetricData'
+              - 'ec2:DescribeSubnets'
+            Resource: '*'
+      Roles:
+        - Ref: "VpcSubnetIpMonitorRole"
+  VpcSubnetIpMonitorRole:
+    Type: 'AWS::IAM::Role'
+    DependsOn:
+      - VpcSubnetIpMonitorExecutionPolicy
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      RoleName: VpcSubnetIpMonitorRole
