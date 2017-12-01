@@ -10,3 +10,8 @@ Resources:
       Description: ''
       MemorySize: 128
       Timeout: 15
+      Events:
+        CheckSubnetsScheduledEvent:
+          Type: Schedule
+          Properties:
+            Schedule: rate(5 minutes)
