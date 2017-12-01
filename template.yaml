@@ -5,13 +5,14 @@ Resources:
   VpcSubnetIpMonitor:
     Type: 'AWS::Serverless::Function'
     DependsOn:
-      - VpcSubnetIpMonitorRole
+      - MonitorRole
     Properties:
       Handler: VpcSubnetIpMonitor/index.handler
       Runtime: nodejs6.10
       Description: ''
       MemorySize: 128
       Timeout: 15
+      Role: MonitorRole
       Events:
         CheckSubnetsScheduledEvent:
           Type: Schedule
