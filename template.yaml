@@ -19,6 +19,8 @@ Resources:
             Schedule: rate(5 minutes)
   VpcSubnetIpMonitorExecutionPolicy:
     Type: 'AWS::IAM::Policy'
+    DependsOn:
+      - MonitorRole
     Properties:
       PolicyName: VpcSubneIpMonitorExecutionPolicy
       PolicyDocument:
@@ -30,11 +32,9 @@ Resources:
               - 'ec2:DescribeSubnets'
             Resource: '*'
       Roles:
-        - Ref: "VpcSubnetIpMonitorRole"
-  VpcSubnetIpMonitorRole:
+        - Ref: "MonitorRole"
+  MonitorRole:
     Type: 'AWS::IAM::Role'
-    DependsOn:
-      - VpcSubnetIpMonitorExecutionPolicy
     Properties:
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
