@@ -18,7 +18,10 @@ exports.handler = (event, context, callback) => {
     var MetricData = [];
 
     ec2.describeSubnets({}, function(err,data) {
-        if (err) console.log(err, err.stack);
+        if (err) {
+            console.log(err, err.stack);
+            callback(err, err.stack);
+        }
         else {
             console.log("Success { Count:", data['Subnets'].length, "}");
             
@@ -69,7 +72,11 @@ exports.handler = (event, context, callback) => {
             // putMetricData can only accept 20 metrics at a time.
             chunk(MetricData, 20).forEach(function (MetricChunk) {
                 cw.putMetricData({Namespace: 'VPC', MetricData: MetricChunk}, function(err, data) {
-                    if (err) console.log(err,err.stack);
+                    if (err) {
+                        console.log(err,err.stack);
+                        callback(err, err.stack);
+
+                    }
                     else {
                         console.log("Success", data);
                     }
