@@ -23,7 +23,7 @@ Resources:
     DependsOn:
       - MonitorRole
     Properties:
-      PolicyName: VpcSubneIpMonitorExecutionPolicy
+      PolicyName: VpcSubnetIpMonitorExecutionPolicy
       PolicyDocument:
         Version: '2012-10-17'
         Statement:

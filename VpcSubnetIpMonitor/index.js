@@ -3,7 +3,7 @@
 console.log('Loading function');
 
 var AWS = require('aws-sdk');
-AWS.config.update({region: 'us-east-1'});
+AWS.config.update({region: process.env.AWS_REGION});
 var ec2 = new AWS.EC2();
 var cw = new AWS.CloudWatch();
 
