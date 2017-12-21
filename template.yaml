@@ -11,7 +11,7 @@ Resources:
       Runtime: nodejs6.10
       Description: ''
       MemorySize: 128
-      Timeout: 15
+      Timeout: 5
       Role: !GetAtt MonitorRole.Arn
       Events:
         CheckSubnetsScheduledEvent:
