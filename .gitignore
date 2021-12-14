@@ -1,2 +1,4 @@
 .application.json
 **/node_modules
+.terraform
+*.zip
