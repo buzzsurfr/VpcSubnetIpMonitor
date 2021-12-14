@@ -1,21 +1,6 @@
-resource "null_resource" "npm_install" {
-  triggers = {
-    index = sha256(file("${path.module}/VpcSubnetIpMonitor/index.js"))
-  }
-  provisioner "local-exec" {
-    command = "cd ${path.module}/VpcSubnetIpMonitor && npm install chunk"
-  }
-}
-
-data "null_data_source" "wait_for_npm_install" {
-  inputs = {
-    lambda_dependency_id = null_resource.npm_install.id
-    source_dir           = "${path.module}/VpcSubnetIpMonitor/"
-  }
-}
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_dir  = data.null_data_source.wait_for_npm_install.outputs["source_dir"]
+  source_dir  = "${path.module}/VpcSubnetIpMonitor/"
   output_path = "${path.module}/lambda_function.zip"
 }
 
