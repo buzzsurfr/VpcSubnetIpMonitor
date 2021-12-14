@@ -7,7 +7,13 @@ AWS.config.update({region: process.env.AWS_REGION});
 var ec2 = new AWS.EC2();
 var cw = new AWS.CloudWatch();
 
-var chunk = require('chunk');
+
+// Create a generator to split the result to chunks of 20 items
+function* chunks(arr, n) {
+    for (let i = 0; i < arr.length; i += n) {
+      yield arr.slice(i, i + n);
+    }
+}
 
 /**
  * Checks all subnets in an account for IP address availability, and reports
