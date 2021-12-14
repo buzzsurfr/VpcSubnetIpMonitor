@@ -7,6 +7,7 @@ data "archive_file" "lambda_zip" {
 resource "aws_lambda_function" "monitoring_lambda" {
   function_name    = var.lambda_function_name
   filename         = data.archive_file.lambda_zip.output_path
+  description      = "Publish the IP Address availability in all VPC-based subnets as CloudWatch Metrics."
   role             = aws_iam_role.monitoring_lambda_role.arn
   handler          = "index.handler"
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
