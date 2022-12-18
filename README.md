@@ -1,5 +1,7 @@
 # VpcSubnetIpMonitor
 
+**UPDATE (2022-12-18):** Archived as AWS now supports [IP Address Management](https://aws.amazon.com/about-aws/whats-new/2021/12/amazon-virtual-private-cloud-vpc-announces-ip-address-manager-ipam/), rendering this unnecessary.
+
 Lambda function to publish the IP Address availability in all VPC-based subnets as CloudWatch Metrics.
 
 Built using [AWS Serverless Application Model](https://github.com/awslabs/serverless-application-model).
